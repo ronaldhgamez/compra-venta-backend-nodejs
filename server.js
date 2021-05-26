@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(morgan('dev'));
 
 // rutas
-app.use(require('./routes/routes'));
+app.use(require('./src/routes/routes'));
 
 const port = 4000;
 app.listen(port);
