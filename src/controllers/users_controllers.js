@@ -60,8 +60,6 @@ async function updateDocument(req, res) {
     }
 }
 
-
-
 module.exports = {
     addUser,
     getUserCollections,
