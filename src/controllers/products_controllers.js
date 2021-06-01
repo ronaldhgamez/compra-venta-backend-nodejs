@@ -23,7 +23,9 @@ async function getUserProducts(req, res) {
 
         var products = [];
         queryRef.forEach(product => {
-            products.push(product.data());
+            var data = product.data();
+            data.id = product.id;
+            products.push(data);
         });
         return res.status(200).send(products);
     } catch (error) {

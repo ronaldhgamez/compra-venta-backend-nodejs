@@ -22,12 +22,29 @@ const addUser = async (req, res) => {
 };
 
 
+const validateUser = async (req, res) => {
+    try {
+        const reg = await db.collection('users').doc(req.body.user).get();
+        const response = reg.data();
+        if (response != undefined) {
+            /* validates password and username */
+            (response.user == req.body.user && response.pass == req.body.pass) ?
+                res.send({ "valid": true }) : res.status(200).send({ "valid": false });
+        } else {
+            res.status(200).send({ "valid": false });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error); /* 500: internal error */
+    }
+}
+
 /* Receives the username of the user and returns his data */
 const getUserCollections = async (req, res) => {
     try {
         const reg = await db.collection('users').doc(req.body.user).get();
         const response = reg.data();
-        return (response != undefined) ? res.status(200).send(reg.data()) : res.status(200).send({});
+        return (response != undefined) ? res.status(200).send(response) : res.status(200).send({});
     } catch (error) {
         console.log(error);
         return res.status(500).send(error); /* 500: internal error */
@@ -62,6 +79,7 @@ async function updateDocument(req, res) {
 
 module.exports = {
     addUser,
+    validateUser,
     getUserCollections,
     updateUserData
 }
