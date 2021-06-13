@@ -19,13 +19,8 @@ router.post('/api/validateUser', users_controllers.validateUser);
 ///////////////////////////////////////////////////////////////////////
 router.post('/api/addProduct', products_controllers.addProduct);
 router.post('/api/getUserProducts', products_controllers.getUserProducts);
-
-
-/* 
-router.post('/api/simpleQuery', users_controllers.simpleQuery);
-router.post('/api/updateUser', users_controllers.updateDocument);
-router.post('/api/updateDocument', users_controllers.updateDocument); 
-*/
+router.post('/api/getAllProducts', products_controllers.getAllProducts);
+router.delete('/api/deleteProduct', products_controllers.deleteProduct);
 
 // Default route.
 router.get('/', (req, res) => {
