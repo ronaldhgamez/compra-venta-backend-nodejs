@@ -51,7 +51,6 @@ const getUserCollections = async (req, res) => {
     }
 }
 
-
 /* updates the body information of a user */
 async function updateUserData(req, res) {
     try {
@@ -70,28 +69,65 @@ async function updateUserData(req, res) {
     }
 }
 
-
-async function updateDocument(req, res) {
-    try {
-        const { collection, username, attribute, newValue } = req.body;
-
-        const ref = db.collection(collection).doc(username);
-        const response = await ref.update({ attribute: newValue }); // Set the new value of the document
-
-        console.log('Update: ', response);
-        return res.status(204).json(); /* 204: no response, everithing ok */
-    } catch (error) {
-        return res.status(500).send(error); /* 500: internal error */
-    }
-}
 //----------------------------------WEB------------------------------
 
 async function updatePassw(req, res) {
     try {
-        await db.collection('users').doc(req.body.user).update({pass:req.body.pass});
+        await db.collection('users').doc(req.body.user).update({ pass: req.body.pass });
         return res.status(200).send({ "updated": true });
     } catch (error) {
         return res.status(500).send(error); /* 500: internal error */
+    }
+}
+
+/* comments and ranking */
+const addCalificationUser = async (req, res) => {
+    try {
+        const data = {
+            "user_ranked": req.body.user_ranked,
+            "user": req.body.user, /* who makes the comment */
+            "ranking": req.body.ranking,
+            "comment": req.body.comment
+        };
+
+        const snapshot = await db.collection('ranking').where('user_ranked', '==', req.body.user_ranked)
+            .where('user', '==', req.body.user).get();
+
+        if (!snapshot.empty) {
+            var id_document = '';
+            snapshot.forEach(doc => {
+                id_document = doc.id;
+            });
+            /* modify data if already exist */
+            await db.collection('ranking').doc(id_document).set(data);
+            return res.status(200).send({ "ranked": true });
+        } else {
+            /* if no exist create a new doc */
+            await db.collection('ranking').doc().set(data);
+            return res.status(200).send({ "ranked": true });
+        }
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ "ranked": false });
+    }
+}
+
+const getUserRanking = async (req, res) => {
+    try {
+        const data = db.collection('ranking');
+        const queryRef = await data.where('user', '==', `${req.body.user}`).get();
+
+        var response = [];
+        queryRef.forEach(h => {
+            var data = h.data();
+            data.id = h.id;
+            response.push(data);
+        });
+        return res.status(200).send(response);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send([]);
     }
 }
 
@@ -101,6 +137,8 @@ module.exports = {
     validateUser,
     getUserCollections,
     updateUserData,
-    updatePassw
-    
+    updatePassw,
+    /* ranking */
+    addCalificationUser,
+    getUserRanking
 }

@@ -5,12 +5,12 @@ const morgan = require('morgan');
 
 const app = express();
 
-//----------------------------------PROTOCOLOS PARA EL BACKEND (LOCALHOST) ---------------------------------
-const bodyParser = require("body-parser");
+// middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }))
+app.use(morgan('dev'));
 
-app.use(morgan("dev"));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+//----------------------------------PROTOCOLOS PARA EL BACKEND (LOCALHOST) ---------------------------------
 cors = require("cors");
 app.use(cors());
 app.use((req, res, next) => {
