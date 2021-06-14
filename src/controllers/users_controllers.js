@@ -95,10 +95,12 @@ async function updatePassw(req, res) {
     }
 }
 
+
 module.exports = {
     addUser,
     validateUser,
     getUserCollections,
     updateUserData,
     updatePassw
+    
 }
