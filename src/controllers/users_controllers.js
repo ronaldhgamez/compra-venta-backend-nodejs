@@ -55,10 +55,18 @@ const getUserCollections = async (req, res) => {
 /* updates the body information of a user */
 async function updateUserData(req, res) {
     try {
-        await db.collection('users').doc(req.body.user).set(req.body);
+        const object = {
+            "name": req.body.name,
+            "lastname": req.body.lastname,
+            "tel": req.body.tel,
+            "exactAddress": req.body.exactAddress,
+            "biography": req.body.biography
+        };
+        await db.collection('users').doc(req.body.user).update(object);
         return res.status(200).send({ "updated": true });
     } catch (error) {
-        return res.status(500).send(error); /* 500: internal error */
+        console.log(error);
+        return res.status(500).send({ "updated": false }); /* 500: internal error */
     }
 }
 
@@ -76,10 +84,21 @@ async function updateDocument(req, res) {
         return res.status(500).send(error); /* 500: internal error */
     }
 }
+//----------------------------------WEB------------------------------
+
+async function updatePassw(req, res) {
+    try {
+        await db.collection('users').doc(req.body.user).update({pass:req.body.pass});
+        return res.status(200).send({ "updated": true });
+    } catch (error) {
+        return res.status(500).send(error); /* 500: internal error */
+    }
+}
 
 module.exports = {
     addUser,
     validateUser,
     getUserCollections,
-    updateUserData
+    updateUserData,
+    updatePassw
 }

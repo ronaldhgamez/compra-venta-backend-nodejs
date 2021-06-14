@@ -13,6 +13,8 @@ router.post('/api/addUser', users_controllers.addUser);
 router.post('/api/updateUserData', users_controllers.updateUserData);
 router.post('/api/getUserCollections', users_controllers.getUserCollections);
 router.post('/api/validateUser', users_controllers.validateUser);
+router.post('/api/updatePassw', users_controllers.updatePassw);
+
 
 ///////////////////////////////////////////////////////////////////////
 //////////////////////// Products routes //////////////////////////////
