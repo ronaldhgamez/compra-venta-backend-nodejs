@@ -29,6 +29,6 @@ app.use((req, res, next) => {
 // rutas
 app.use(require('./src/routes/routes'));
 
-const port = 4000;
+const port = process.env.PORT || 4000;
 app.listen(port);
 console.log("Servidor corriendo en puerto " + port);
