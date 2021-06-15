@@ -4,7 +4,6 @@ const router = Router();
 
 const users_controllers = require('../controllers/users_controllers')
 const products_controllers = require('../controllers/products_controllers')
-const history_controllers = require('../controllers/history_controllers')
 const notifications_controllers = require('../controllers/notifications_controllers')
 
 ///////////////////////////////////////////////////////////////////////
@@ -26,12 +25,6 @@ router.post('/api/getUserProducts', products_controllers.getUserProducts);
 router.post('/api/getAllProducts', products_controllers.getAllProducts);
 router.delete('/api/deleteProduct', products_controllers.deleteProduct);
 router.post('/api/getProductCollection', products_controllers.getProductCollection);
-
-///////////////////////////////////////////////////////////////////////
-//////////////////////// History routes ///////////////////////////////
-///////////////////////////////////////////////////////////////////////
-router.post('/api/addHistory', history_controllers.addHistory);
-router.post('/api/getUserHistory', history_controllers.getUserHistory);
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////// Notifications routes ////////////////////////////

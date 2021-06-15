@@ -7,7 +7,8 @@ const sendNotificationToUser = async (req, res) => {
         const data ={
             "user": req.body.user,
             "client": req.body.client,
-            "id_product": req.body.id_product
+            "id_product": req.body.id_product,
+            "amount": req.body.amount
         };
         await db.collection('notifications').doc().set(data);
         return res.status(200).send({ "sended": true });
