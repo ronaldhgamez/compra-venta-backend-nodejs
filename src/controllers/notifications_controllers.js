@@ -36,7 +36,19 @@ const getUserNotifications = async (req, res) => {
     }
 }
 
+async function deleteNotification(req, res) {
+    try {
+        await db.collection('notifications').doc(req.body.id).delete();
+        return res.status(200).send({ "deleted": true });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ "deleted": false }); /* 500: internal error */
+    }
+}
+
+
 module.exports = {
     sendNotificationToUser,
-    getUserNotifications
+    getUserNotifications,
+    deleteNotification
 };

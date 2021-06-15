@@ -31,7 +31,7 @@ router.post('/api/getProductCollection', products_controllers.getProductCollecti
 ///////////////////////////////////////////////////////////////////////
 router.post('/api/sendNotificationToUser', notifications_controllers.sendNotificationToUser);
 router.post('/api/getUserNotifications', notifications_controllers.getUserNotifications);
-
+router.delete('/api/deleteNotification', notifications_controllers.deleteNotification);
 
 // Default route.
 router.get('/', (req, res) => {
