@@ -25,6 +25,7 @@ router.post('/api/addProduct', products_controllers.addProduct);
 router.post('/api/getUserProducts', products_controllers.getUserProducts);
 router.post('/api/getAllProducts', products_controllers.getAllProducts);
 router.delete('/api/deleteProduct', products_controllers.deleteProduct);
+router.post('/api/getProductCollection', products_controllers.getProductCollection);
 
 ///////////////////////////////////////////////////////////////////////
 //////////////////////// History routes ///////////////////////////////

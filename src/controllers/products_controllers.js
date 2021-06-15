@@ -53,6 +53,17 @@ async function getAllProducts(req, res) {
     }
 }
 
+const getProductCollection = async (req, res) => {
+    try {
+        const reg = await db.collection('products').doc(req.body.id).get();
+        const response = reg.data();
+        return (response != undefined) ? res.status(200).send(response) : res.status(200).send({});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error); /* 500: internal error */
+    }
+}
+
 async function deleteProduct(req, res) {
     try {
         await db.collection('products').doc(req.body.id).delete();
@@ -67,5 +78,6 @@ module.exports = {
     addProduct,
     getUserProducts,
     getAllProducts,
-    deleteProduct
+    deleteProduct,
+    getProductCollection
 }
